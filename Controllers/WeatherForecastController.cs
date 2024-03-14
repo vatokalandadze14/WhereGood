@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Security;
 
 namespace HouseOwnerWebApi.Controllers
 {
@@ -28,6 +29,7 @@ namespace HouseOwnerWebApi.Controllers
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+
         }
     }
 }
