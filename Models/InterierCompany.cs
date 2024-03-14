@@ -2,6 +2,6 @@
 {
     public class InterierCompany : Company
     {
-        public List<Portfolio> Portfolios { get; set; }
+        public string Id { get; set; }
     }
 }

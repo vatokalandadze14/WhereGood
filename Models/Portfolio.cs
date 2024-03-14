@@ -5,6 +5,5 @@
         public string Id { get; set; }
         public string Title { get; set; }
         public string HtmlDescription { get; set; }
-        public InterierCompany InterierCompany { get; set; }
     }
 }
