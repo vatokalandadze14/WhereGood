@@ -11,5 +11,6 @@
         public List<Image> Images { get; set; }
         public AppartmentTypeEnum Type { get; set; }
         public PropertyTypeEnum PropertyType { get; set; }
+        public HouseOwner HouseOwner { get; set; }
     }
 }

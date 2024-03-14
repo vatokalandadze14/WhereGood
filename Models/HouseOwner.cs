@@ -7,5 +7,6 @@
         public string SurName { get; set; }
         public int PhoneNumber { get; set; }
         public bool Agent { get; set; }
+        public List<Announcment> Announcments { get; set; }
     }
 }

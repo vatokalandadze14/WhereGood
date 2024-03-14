@@ -7,5 +7,6 @@
         public int TotalUSD { get; set; }
         public int SquareMeterGEL { get; set; }
         public int SquareMeterUSD { get; set; }
+        public Announcment Announcment { get; set; }
     }
 }
