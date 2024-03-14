@@ -11,5 +11,6 @@
         public string? District { get; set; }
         public string Street { get; set; }
         public string? StreetNumber { get; set; }
+        public Announcment Announcment { get; set; }
     }
 }
