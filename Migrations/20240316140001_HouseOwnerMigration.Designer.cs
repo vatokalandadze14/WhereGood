@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HouseOwnerWebApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240314215832_Initial1")]
-    partial class Initial1
+    [Migration("20240316140001_HouseOwnerMigration")]
+    partial class HouseOwnerMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,6 +34,7 @@ namespace HouseOwnerWebApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HouseOwnerId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("PropertyType")
@@ -54,7 +55,7 @@ namespace HouseOwnerWebApi.Migrations
 
                     b.HasIndex("HouseOwnerId");
 
-                    b.ToTable("Announcments");
+                    b.ToTable("Announcment");
                 });
 
             modelBuilder.Entity("HouseOwnerWebApi.Models.HouseOwner", b =>
@@ -85,7 +86,9 @@ namespace HouseOwnerWebApi.Migrations
                 {
                     b.HasOne("HouseOwnerWebApi.Models.HouseOwner", "HouseOwner")
                         .WithMany("Announcments")
-                        .HasForeignKey("HouseOwnerId");
+                        .HasForeignKey("HouseOwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("HouseOwner");
                 });

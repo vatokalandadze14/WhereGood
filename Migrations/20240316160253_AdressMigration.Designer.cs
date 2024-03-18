@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HouseOwnerWebApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240314225819_Initial6")]
-    partial class Initial6
+    [Migration("20240316160253_AdressMigration")]
+    partial class AdressMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -101,6 +101,7 @@ namespace HouseOwnerWebApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HouseOwnerId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("PropertyType")
@@ -121,7 +122,7 @@ namespace HouseOwnerWebApi.Migrations
 
                     b.HasIndex("HouseOwnerId");
 
-                    b.ToTable("Announcments");
+                    b.ToTable("Announcment");
                 });
 
             modelBuilder.Entity("HouseOwnerWebApi.Models.HouseOwner", b =>
@@ -154,7 +155,6 @@ namespace HouseOwnerWebApi.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AnnouncmentId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
@@ -178,7 +178,6 @@ namespace HouseOwnerWebApi.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AnnouncmentId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("SquareMeterGEL")
@@ -220,7 +219,7 @@ namespace HouseOwnerWebApi.Migrations
 
                     b.HasIndex("AgencyId");
 
-                    b.ToTable("SocialLinks");
+                    b.ToTable("SocialLink");
                 });
 
             modelBuilder.Entity("HouseOwnerWebApi.Models.Adress", b =>
@@ -247,7 +246,9 @@ namespace HouseOwnerWebApi.Migrations
                 {
                     b.HasOne("HouseOwnerWebApi.Models.HouseOwner", "HouseOwner")
                         .WithMany("Announcments")
-                        .HasForeignKey("HouseOwnerId");
+                        .HasForeignKey("HouseOwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("HouseOwner");
                 });
@@ -256,9 +257,7 @@ namespace HouseOwnerWebApi.Migrations
                 {
                     b.HasOne("HouseOwnerWebApi.Models.Announcment", "Announcment")
                         .WithMany()
-                        .HasForeignKey("AnnouncmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AnnouncmentId");
 
                     b.Navigation("Announcment");
                 });
@@ -267,9 +266,7 @@ namespace HouseOwnerWebApi.Migrations
                 {
                     b.HasOne("HouseOwnerWebApi.Models.Announcment", "Announcment")
                         .WithMany()
-                        .HasForeignKey("AnnouncmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AnnouncmentId");
 
                     b.Navigation("Announcment");
                 });

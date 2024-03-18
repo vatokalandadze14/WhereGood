@@ -1,9 +1,12 @@
-﻿namespace HouseOwnerWebApi.Models
+﻿using HouseOwnerWebApi.Models.Share;
+
+namespace HouseOwnerWebApi.Models
 {
-    public class Portfolio
+    public class Portfolio : BaseEntity
     {
-        public string Id { get; set; }
         public string Title { get; set; }
         public string HtmlDescription { get; set; }
+
+        public Guid InterierCompanyId { get; set; }
     }
 }

@@ -5,43 +5,41 @@
 namespace HouseOwnerWebApi.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial5 : Migration
+    public partial class ImagesMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Agencies",
+                name: "Images",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Mail = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNumber = table.Column<int>(type: "int", nullable: false),
-                    AdressId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AnnouncmentId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Agencies", x => x.Id);
+                    table.PrimaryKey("PK_Images", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Agencies_Adresses_AdressId",
-                        column: x => x.AdressId,
-                        principalTable: "Adresses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_Images_Announcment_AnnouncmentId",
+                        column: x => x.AnnouncmentId,
+                        principalTable: "Announcment",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Agencies_AdressId",
-                table: "Agencies",
-                column: "AdressId");
+                name: "IX_Images_AnnouncmentId",
+                table: "Images",
+                column: "AnnouncmentId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Agencies");
+                name: "Images");
         }
     }
 }

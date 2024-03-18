@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HouseOwnerWebApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4461201704b75bcf5d0e3d3296265947c816c827")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("HouseOwnerWebApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HouseOwnerWebApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

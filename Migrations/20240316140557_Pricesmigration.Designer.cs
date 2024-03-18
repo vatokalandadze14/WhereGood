@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HouseOwnerWebApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240314224648_Initial4")]
-    partial class Initial4
+    [Migration("20240316140557_Pricesmigration")]
+    partial class Pricesmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,46 +24,6 @@ namespace HouseOwnerWebApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("HouseOwnerWebApi.Models.Adress", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("AnnouncmentId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("District")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Latitute")
-                        .HasColumnType("float");
-
-                    b.Property<double>("Longitude")
-                        .HasColumnType("float");
-
-                    b.Property<string>("Municipality")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Region")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Street")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StreetNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AnnouncmentId");
-
-                    b.ToTable("Adresses");
-                });
-
             modelBuilder.Entity("HouseOwnerWebApi.Models.Announcment", b =>
                 {
                     b.Property<string>("Id")
@@ -74,6 +34,7 @@ namespace HouseOwnerWebApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HouseOwnerId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("PropertyType")
@@ -94,7 +55,7 @@ namespace HouseOwnerWebApi.Migrations
 
                     b.HasIndex("HouseOwnerId");
 
-                    b.ToTable("Announcments");
+                    b.ToTable("Announcment");
                 });
 
             modelBuilder.Entity("HouseOwnerWebApi.Models.HouseOwner", b =>
@@ -127,7 +88,6 @@ namespace HouseOwnerWebApi.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AnnouncmentId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
@@ -151,7 +111,6 @@ namespace HouseOwnerWebApi.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AnnouncmentId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("SquareMeterGEL")
@@ -173,20 +132,13 @@ namespace HouseOwnerWebApi.Migrations
                     b.ToTable("Prices");
                 });
 
-            modelBuilder.Entity("HouseOwnerWebApi.Models.Adress", b =>
-                {
-                    b.HasOne("HouseOwnerWebApi.Models.Announcment", "Announcment")
-                        .WithMany()
-                        .HasForeignKey("AnnouncmentId");
-
-                    b.Navigation("Announcment");
-                });
-
             modelBuilder.Entity("HouseOwnerWebApi.Models.Announcment", b =>
                 {
                     b.HasOne("HouseOwnerWebApi.Models.HouseOwner", "HouseOwner")
                         .WithMany("Announcments")
-                        .HasForeignKey("HouseOwnerId");
+                        .HasForeignKey("HouseOwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("HouseOwner");
                 });
@@ -195,9 +147,7 @@ namespace HouseOwnerWebApi.Migrations
                 {
                     b.HasOne("HouseOwnerWebApi.Models.Announcment", "Announcment")
                         .WithMany()
-                        .HasForeignKey("AnnouncmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AnnouncmentId");
 
                     b.Navigation("Announcment");
                 });
@@ -206,9 +156,7 @@ namespace HouseOwnerWebApi.Migrations
                 {
                     b.HasOne("HouseOwnerWebApi.Models.Announcment", "Announcment")
                         .WithMany()
-                        .HasForeignKey("AnnouncmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AnnouncmentId");
 
                     b.Navigation("Announcment");
                 });

@@ -5,7 +5,7 @@
 namespace HouseOwnerWebApi.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial1 : Migration
+    public partial class HouseOwnerMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,7 +26,7 @@ namespace HouseOwnerWebApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Announcments",
+                name: "Announcment",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -35,21 +35,22 @@ namespace HouseOwnerWebApi.Migrations
                     ShortDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
                     PropertyType = table.Column<int>(type: "int", nullable: false),
-                    HouseOwnerId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    HouseOwnerId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Announcments", x => x.Id);
+                    table.PrimaryKey("PK_Announcment", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Announcments_HouseOwners_HouseOwnerId",
+                        name: "FK_Announcment_HouseOwners_HouseOwnerId",
                         column: x => x.HouseOwnerId,
                         principalTable: "HouseOwners",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Announcments_HouseOwnerId",
-                table: "Announcments",
+                name: "IX_Announcment_HouseOwnerId",
+                table: "Announcment",
                 column: "HouseOwnerId");
         }
 
@@ -57,7 +58,7 @@ namespace HouseOwnerWebApi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Announcments");
+                name: "Announcment");
 
             migrationBuilder.DropTable(
                 name: "HouseOwners");

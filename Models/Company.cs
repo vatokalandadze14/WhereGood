@@ -1,7 +1,8 @@
-﻿namespace HouseOwnerWebApi.Models
+﻿using HouseOwnerWebApi.Models.Share;
+
+namespace HouseOwnerWebApi.Models
 {
-    public class Company : Agency
+    public class Company : BaseEntity
     {
-        public string Id { get; set; }
     }
 }

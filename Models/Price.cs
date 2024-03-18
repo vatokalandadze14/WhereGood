@@ -1,12 +1,12 @@
-﻿namespace HouseOwnerWebApi.Models
+﻿using HouseOwnerWebApi.Models.Share;
+
+namespace HouseOwnerWebApi.Models
 {
-    public class Price
+    public class Price : BaseEntity
     {
-        public string Id { get; set; }
         public int TotalGEL { get; set; }
         public int TotalUSD { get; set; }
         public int SquareMeterGEL { get; set; }
         public int SquareMeterUSD { get; set; }
-        public Announcment Announcment { get; set; }
     }
 }

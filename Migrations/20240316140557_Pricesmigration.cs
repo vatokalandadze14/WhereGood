@@ -5,34 +5,35 @@
 namespace HouseOwnerWebApi.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial2 : Migration
+    public partial class Pricesmigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Images",
+                name: "Prices",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AnnouncmentId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    TotalGEL = table.Column<int>(type: "int", nullable: false),
+                    TotalUSD = table.Column<int>(type: "int", nullable: false),
+                    SquareMeterGEL = table.Column<int>(type: "int", nullable: false),
+                    SquareMeterUSD = table.Column<int>(type: "int", nullable: false),
+                    AnnouncmentId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Images", x => x.Id);
+                    table.PrimaryKey("PK_Prices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Images_Announcments_AnnouncmentId",
+                        name: "FK_Prices_Announcment_AnnouncmentId",
                         column: x => x.AnnouncmentId,
-                        principalTable: "Announcments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalTable: "Announcment",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Images_AnnouncmentId",
-                table: "Images",
+                name: "IX_Prices_AnnouncmentId",
+                table: "Prices",
                 column: "AnnouncmentId");
         }
 
@@ -40,7 +41,7 @@ namespace HouseOwnerWebApi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Images");
+                name: "Prices");
         }
     }
 }

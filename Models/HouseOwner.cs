@@ -1,12 +1,13 @@
-﻿namespace HouseOwnerWebApi.Models
+﻿using HouseOwnerWebApi.Models.Share;
+
+namespace HouseOwnerWebApi.Models
 {
-    public class HouseOwner
+    public class HouseOwner : BaseEntity
     {
-        public string Id { get; set; }
         public string Name { get; set; }
         public string SurName { get; set; }
         public int PhoneNumber { get; set; }
         public bool Agent { get; set; }
-        public List<Announcment> Announcments { get; set; }
+        public ICollection<Announcment> Announcments { get; set; }
     }
 }
