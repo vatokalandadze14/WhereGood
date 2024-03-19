@@ -6,25 +6,21 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HouseOwnerWebApi.Migrations
 {
     /// <inheritdoc />
-    public partial class PriceMigration : Migration
+    public partial class Price : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropColumn(
+                name: "PriceId",
+                table: "Announcments");
+
             migrationBuilder.AddColumn<bool>(
                 name: "IsDeleted",
                 table: "HouseOwners",
                 type: "bit",
                 nullable: false,
                 defaultValue: false);
-
-            migrationBuilder.AlterColumn<Guid>(
-                name: "PriceId",
-                table: "Announcments",
-                type: "uniqueidentifier",
-                nullable: true,
-                oldClrType: typeof(Guid),
-                oldType: "uniqueidentifier");
 
             migrationBuilder.AddColumn<bool>(
                 name: "IsDeleted",
@@ -42,6 +38,7 @@ namespace HouseOwnerWebApi.Migrations
                     TotalUSD = table.Column<int>(type: "int", nullable: false),
                     SquareMeterGEL = table.Column<int>(type: "int", nullable: false),
                     SquareMeterUSD = table.Column<int>(type: "int", nullable: false),
+                    AnnouncmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DeletedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -50,36 +47,26 @@ namespace HouseOwnerWebApi.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Prices", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Prices_Announcments_AnnouncmentId",
+                        column: x => x.AnnouncmentId,
+                        principalTable: "Announcments",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Announcments_PriceId",
-                table: "Announcments",
-                column: "PriceId",
+                name: "IX_Prices_AnnouncmentId",
+                table: "Prices",
+                column: "AnnouncmentId",
                 unique: true,
-                filter: "[PriceId] IS NOT NULL");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Announcments_Prices_PriceId",
-                table: "Announcments",
-                column: "PriceId",
-                principalTable: "Prices",
-                principalColumn: "Id");
+                filter: "[AnnouncmentId] IS NOT NULL");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Announcments_Prices_PriceId",
-                table: "Announcments");
-
             migrationBuilder.DropTable(
                 name: "Prices");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Announcments_PriceId",
-                table: "Announcments");
 
             migrationBuilder.DropColumn(
                 name: "IsDeleted",
@@ -89,15 +76,12 @@ namespace HouseOwnerWebApi.Migrations
                 name: "IsDeleted",
                 table: "Announcments");
 
-            migrationBuilder.AlterColumn<Guid>(
+            migrationBuilder.AddColumn<Guid>(
                 name: "PriceId",
                 table: "Announcments",
                 type: "uniqueidentifier",
                 nullable: false,
-                defaultValue: new Guid("00000000-0000-0000-0000-000000000000"),
-                oldClrType: typeof(Guid),
-                oldType: "uniqueidentifier",
-                oldNullable: true);
+                defaultValue: new Guid("00000000-0000-0000-0000-000000000000"));
         }
     }
 }

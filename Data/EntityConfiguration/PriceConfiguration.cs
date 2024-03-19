@@ -11,10 +11,6 @@ namespace HouseOwnerWebApi.Data.EntityConfiguration
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).ValueGeneratedNever();
 
-            builder.HasOne(x => x.Announcment)
-                   .WithOne()
-                   .HasForeignKey<Announcment>(x => x.PriceId)
-                   .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

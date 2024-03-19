@@ -4,6 +4,7 @@ using HouseOwnerWebApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HouseOwnerWebApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240319194949_AgencyMigration")]
+    partial class AgencyMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -235,65 +238,6 @@ namespace HouseOwnerWebApi.Migrations
                     b.ToTable("Images");
                 });
 
-            modelBuilder.Entity("HouseOwnerWebApi.Models.InterierCompany", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("InterierCompanies");
-                });
-
-            modelBuilder.Entity("HouseOwnerWebApi.Models.Portfolio", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("HtmlDescription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("InterierCompanyId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("InterierCompanyId");
-
-                    b.ToTable("Portfolio");
-                });
-
             modelBuilder.Entity("HouseOwnerWebApi.Models.Price", b =>
                 {
                     b.Property<Guid>("Id")
@@ -402,15 +346,6 @@ namespace HouseOwnerWebApi.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("HouseOwnerWebApi.Models.Portfolio", b =>
-                {
-                    b.HasOne("HouseOwnerWebApi.Models.InterierCompany", null)
-                        .WithMany("Portfolios")
-                        .HasForeignKey("InterierCompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("HouseOwnerWebApi.Models.Price", b =>
                 {
                     b.HasOne("HouseOwnerWebApi.Models.Announcment", null)
@@ -447,11 +382,6 @@ namespace HouseOwnerWebApi.Migrations
             modelBuilder.Entity("HouseOwnerWebApi.Models.HouseOwner", b =>
                 {
                     b.Navigation("Announcments");
-                });
-
-            modelBuilder.Entity("HouseOwnerWebApi.Models.InterierCompany", b =>
-                {
-                    b.Navigation("Portfolios");
                 });
 #pragma warning restore 612, 618
         }

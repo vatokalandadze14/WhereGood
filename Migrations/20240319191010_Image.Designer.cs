@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HouseOwnerWebApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240318190624_PriceMigration")]
-    partial class PriceMigration
+    [Migration("20240319191010_Image")]
+    partial class Image
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,9 +50,6 @@ namespace HouseOwnerWebApi.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("PriceId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("PropertyType")
                         .HasColumnType("int");
 
@@ -70,10 +67,6 @@ namespace HouseOwnerWebApi.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("HouseOwnerId");
-
-                    b.HasIndex("PriceId")
-                        .IsUnique()
-                        .HasFilter("[PriceId] IS NOT NULL");
 
                     b.ToTable("Announcments");
                 });
@@ -115,10 +108,49 @@ namespace HouseOwnerWebApi.Migrations
                     b.ToTable("HouseOwners");
                 });
 
+            modelBuilder.Entity("HouseOwnerWebApi.Models.Image", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AnnouncmentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnnouncmentId");
+
+                    b.ToTable("Images");
+                });
+
             modelBuilder.Entity("HouseOwnerWebApi.Models.Price", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AnnouncmentId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedOn")
@@ -147,6 +179,10 @@ namespace HouseOwnerWebApi.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AnnouncmentId")
+                        .IsUnique()
+                        .HasFilter("[AnnouncmentId] IS NOT NULL");
+
                     b.ToTable("Prices");
                 });
 
@@ -155,21 +191,35 @@ namespace HouseOwnerWebApi.Migrations
                     b.HasOne("HouseOwnerWebApi.Models.HouseOwner", null)
                         .WithMany("Announcments")
                         .HasForeignKey("HouseOwnerId");
+                });
 
-                    b.HasOne("HouseOwnerWebApi.Models.Price", null)
-                        .WithOne("Announcment")
-                        .HasForeignKey("HouseOwnerWebApi.Models.Announcment", "PriceId");
+            modelBuilder.Entity("HouseOwnerWebApi.Models.Image", b =>
+                {
+                    b.HasOne("HouseOwnerWebApi.Models.Announcment", null)
+                        .WithMany("Images")
+                        .HasForeignKey("AnnouncmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("HouseOwnerWebApi.Models.Price", b =>
+                {
+                    b.HasOne("HouseOwnerWebApi.Models.Announcment", null)
+                        .WithOne("Price")
+                        .HasForeignKey("HouseOwnerWebApi.Models.Price", "AnnouncmentId");
+                });
+
+            modelBuilder.Entity("HouseOwnerWebApi.Models.Announcment", b =>
+                {
+                    b.Navigation("Images");
+
+                    b.Navigation("Price")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HouseOwnerWebApi.Models.HouseOwner", b =>
                 {
                     b.Navigation("Announcments");
-                });
-
-            modelBuilder.Entity("HouseOwnerWebApi.Models.Price", b =>
-                {
-                    b.Navigation("Announcment")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

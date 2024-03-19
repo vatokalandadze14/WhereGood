@@ -8,6 +8,5 @@ namespace HouseOwnerWebApi.Models
         public string Url { get; set; }
 
         public Guid? AgencyId { get; set; }
-        public Guid? CompanyId { get; set; }
     }
 }
