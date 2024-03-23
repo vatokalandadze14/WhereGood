@@ -1,4 +1,8 @@
 using HouseOwnerWebApi.Data;
+using HouseOwnerWebApi.Services.AnnouncmentServiceFolder;
+using HouseOwnerWebApi.Services.HouseOwnerServiceFolder;
+using HouseOwnerWebApi.Services.ImagesServiceFolder;
+using HouseOwnerWebApi.Services.PriceServiceFolder;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +18,11 @@ builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+builder.Services.AddScoped<IHouseOwnerService, HouseOwnerService>();
+builder.Services.AddScoped<IAnnouncmentService, AnnouncmentService>();
+builder.Services.AddScoped<IImageService, ImageService>();
+builder.Services.AddScoped<IPriceService, PriceService>();
 
 var app = builder.Build();
 
