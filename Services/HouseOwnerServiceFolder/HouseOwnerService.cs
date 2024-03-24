@@ -35,7 +35,8 @@ namespace HouseOwnerWebApi.Services.HouseOwnerServiceFolder
             if (houseOwner == null)
                 return null;
 
-            _context.HouseOwners.Remove(houseOwner);
+            houseOwner.IsDeleted = true;
+            houseOwner.DeletedAt = DateTime.Now;
             await _context.SaveChangesAsync();
 
             return await _context.HouseOwners.ToListAsync();
@@ -43,7 +44,8 @@ namespace HouseOwnerWebApi.Services.HouseOwnerServiceFolder
 
         public async Task<ICollection<HouseOwner>> GetHouseOwners()
         {
-            return await _context.HouseOwners.ToListAsync();
+            var houseowner = await _context.HouseOwners.Include(a => a.Announcments).Where(x => x.IsDeleted == false).ToListAsync();
+            return houseowner;
         }
 
         public async Task<HouseOwner> GetSingleHouseOwner(Guid id)

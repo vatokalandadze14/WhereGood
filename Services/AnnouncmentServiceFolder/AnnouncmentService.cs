@@ -35,7 +35,8 @@ namespace HouseOwnerWebApi.Services.AnnouncmentServiceFolder
             if (announcment == null)
                 return null;
 
-            _context.Announcments.Remove(announcment);
+            announcment.IsDeleted = true;
+            announcment.DeletedAt = DateTime.Now;
             await _context.SaveChangesAsync();
 
             return await _context.Announcments.ToListAsync();
@@ -43,7 +44,7 @@ namespace HouseOwnerWebApi.Services.AnnouncmentServiceFolder
 
         public async Task<ICollection<Announcment>> GetAnnouncments()
         {
-            return await _context.Announcments.Include(x => x.Images).Include(x => x.Price).Include(x => x.Address).ToListAsync();
+            return await _context.Announcments.Include(x => x.Images).Include(x => x.Price).Include(x => x.Address).Where(x => x.IsDeleted == false).ToListAsync();
         }
 
         public async Task<Announcment> GetSingleAnnouncment(Guid id)
@@ -66,6 +67,7 @@ namespace HouseOwnerWebApi.Services.AnnouncmentServiceFolder
             announcment.ShortDescription = newAnnouncment.shortDescription;
             announcment.Type = newAnnouncment.type;
             announcment.PropertyType = newAnnouncment.propertyType;
+            announcment.HouseOwnerId = newAnnouncment.houseOwnerId;
 
             await _context.SaveChangesAsync();
 

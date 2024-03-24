@@ -33,7 +33,8 @@ namespace HouseOwnerWebApi.Services.ImagesServiceFolder
             if (image == null)
                 return null;
 
-            _context.Images.Remove(image);
+            image.IsDeleted = true;
+            image.DeletedAt = DateTime.Now;
             await _context.SaveChangesAsync();
 
             return await _context.Images.ToListAsync();
@@ -50,7 +51,7 @@ namespace HouseOwnerWebApi.Services.ImagesServiceFolder
 
         public async Task<ICollection<Image>> GetImages()
         {
-            return await _context.Images.ToListAsync();
+            return await _context.Images.Where(x => x.IsDeleted == false).ToListAsync();
         }
 
         public async Task<Image> UpdateImage(Guid id, ImageCreateDto image)

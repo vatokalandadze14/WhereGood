@@ -1,4 +1,5 @@
 using HouseOwnerWebApi.Data;
+using HouseOwnerWebApi.Services.AddressServiceFolder;
 using HouseOwnerWebApi.Services.AnnouncmentServiceFolder;
 using HouseOwnerWebApi.Services.HouseOwnerServiceFolder;
 using HouseOwnerWebApi.Services.ImagesServiceFolder;
@@ -23,6 +24,7 @@ builder.Services.AddScoped<IHouseOwnerService, HouseOwnerService>();
 builder.Services.AddScoped<IAnnouncmentService, AnnouncmentService>();
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IPriceService, PriceService>();
+builder.Services.AddScoped<IAddressService, AddressService>();
 
 var app = builder.Build();
 

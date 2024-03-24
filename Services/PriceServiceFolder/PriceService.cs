@@ -35,7 +35,8 @@ namespace HouseOwnerWebApi.Services.PriceServiceFolder
             if (price == null)
                 return null;
 
-            _context.Remove(price);
+            price.IsDeleted = true;
+            price.DeletedAt = DateTime.Now;
             await _context.SaveChangesAsync();
 
             return await _context.Prices.ToListAsync();
@@ -52,7 +53,7 @@ namespace HouseOwnerWebApi.Services.PriceServiceFolder
 
         public async Task<ICollection<Price>> GetPrices()
         {
-            return await _context.Prices.ToListAsync();
+            return await _context.Prices.Where(x => x.IsDeleted == false).ToListAsync();
         }
 
         public async Task<Price> UpdatePrise(Guid id, PriceDto price)
