@@ -12,7 +12,7 @@ namespace HouseOwnerWebApi.Models
 
         public Guid? HouseOwnerId { get; set; }
         public Price Price { get; set; }
-        public ICollection<Image> Images { get; set; }
-        public Address Address { get; set; }
+        public ICollection<Image>? Images { get; set; }
+        public Address? Address { get; set; }
     }   
 }

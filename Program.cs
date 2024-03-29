@@ -1,9 +1,11 @@
 using HouseOwnerWebApi.Data;
 using HouseOwnerWebApi.Services.AddressServiceFolder;
+using HouseOwnerWebApi.Services.AgencyServiceFolder;
 using HouseOwnerWebApi.Services.AnnouncmentServiceFolder;
 using HouseOwnerWebApi.Services.HouseOwnerServiceFolder;
 using HouseOwnerWebApi.Services.ImagesServiceFolder;
 using HouseOwnerWebApi.Services.PriceServiceFolder;
+using HouseOwnerWebApi.Services.SocialLinkServiceFolder;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +27,8 @@ builder.Services.AddScoped<IAnnouncmentService, AnnouncmentService>();
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IPriceService, PriceService>();
 builder.Services.AddScoped<IAddressService, AddressService>();
+builder.Services.AddScoped<ISocialLinkService, SocialLinkService>();
+builder.Services.AddScoped<IAgencyService, AgencyService>();
 
 var app = builder.Build();
 

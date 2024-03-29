@@ -62,7 +62,6 @@ namespace HouseOwnerWebApi.Services.ImagesServiceFolder
 
             newImage.Name = image.name;
             newImage.Url = image.url;
-            newImage.AnnouncmentId = image.AnnouncmentId;
 
             await _context.SaveChangesAsync();
             return newImage;

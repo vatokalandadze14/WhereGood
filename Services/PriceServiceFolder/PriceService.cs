@@ -66,7 +66,6 @@ namespace HouseOwnerWebApi.Services.PriceServiceFolder
             newPrice.SquareMeterUSD = price.SquareMeterUSD;
             newPrice.TotalGEL = price.TotalGEL;
             newPrice.TotalUSD = price.TotalUSD;
-            newPrice.AnnouncmentId = price.AnnouncmentId;
 
             await _context.SaveChangesAsync();
             return newPrice;

@@ -16,5 +16,7 @@ namespace HouseOwnerWebApi.Data
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Agency> Agencies { get; set; }
         public DbSet<InterierCompany> InterierCompanies { get; set; }
+        public DbSet<SocialLink> SocialLinks { get; set; }
+        public DbSet<Portfolio> Portfolios { get; set; }
     }
 }

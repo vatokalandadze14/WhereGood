@@ -7,6 +7,6 @@ namespace HouseOwnerWebApi.Models
         public string Title { get; set; }
         public string HtmlDescription { get; set; }
 
-        public Guid InterierCompanyId { get; set; }
+        public Guid? InterierCompanyId { get; set; }
     }
 }

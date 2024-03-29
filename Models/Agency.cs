@@ -7,7 +7,9 @@ namespace HouseOwnerWebApi.Models
         public string Name { get; set; }
         public string Mail { get; set; }
         public int PhoneNumber { get; set; }
-        public Address Address { get; set; }
+        public Address? Address { get; set; }
         public ICollection<SocialLink> SocialLinks { get; set; }
+        public string? Site { get; set; }
+        public string Description { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using HouseOwnerWebApi.DTOs;
 using HouseOwnerWebApi.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace HouseOwnerWebApi.Services.AddressServiceFolder
 {
@@ -12,7 +13,7 @@ namespace HouseOwnerWebApi.Services.AddressServiceFolder
         {
             _context = context;
         }
-        public async Task<Address> AddAddress(AddressDto address)
+        public async Task<Address>? AddAddress(AddressDto address)
         {
             var newAddress = new Address
             {
@@ -27,6 +28,14 @@ namespace HouseOwnerWebApi.Services.AddressServiceFolder
                 AnnouncmentId = address.AnnouncmentId,
                 AgencyId = address.AgencyId
             };
+
+            if (address.AgencyId != null)
+            {
+                newAddress.AgencyId = address.AgencyId.Value;
+            }
+
+            if (newAddress == null)
+                return null;
 
             _context.Addresses.Add(newAddress);
             await _context.SaveChangesAsync();
@@ -75,8 +84,6 @@ namespace HouseOwnerWebApi.Services.AddressServiceFolder
             newAddress.District = address.district;
             newAddress.Street = address.street;
             newAddress.StreetNumber = address.streetNumber;
-            newAddress.AnnouncmentId = address.AnnouncmentId;
-            newAddress.AgencyId = address.AgencyId;
 
             await _context.SaveChangesAsync();
             return newAddress;

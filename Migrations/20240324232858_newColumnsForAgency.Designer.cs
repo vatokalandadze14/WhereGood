@@ -4,6 +4,7 @@ using HouseOwnerWebApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HouseOwnerWebApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240324232858_newColumnsForAgency")]
+    partial class newColumnsForAgency
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,7 +84,7 @@ namespace HouseOwnerWebApi.Migrations
                         .IsUnique()
                         .HasFilter("[AnnouncmentId] IS NOT NULL");
 
-                    b.ToTable("Addresses", (string)null);
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("HouseOwnerWebApi.Models.Agency", b =>
@@ -122,7 +125,7 @@ namespace HouseOwnerWebApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Agencies", (string)null);
+                    b.ToTable("Agencies");
                 });
 
             modelBuilder.Entity("HouseOwnerWebApi.Models.Announcment", b =>
@@ -168,7 +171,7 @@ namespace HouseOwnerWebApi.Migrations
 
                     b.HasIndex("HouseOwnerId");
 
-                    b.ToTable("Announcments", (string)null);
+                    b.ToTable("Announcments");
                 });
 
             modelBuilder.Entity("HouseOwnerWebApi.Models.HouseOwner", b =>
@@ -205,7 +208,7 @@ namespace HouseOwnerWebApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("HouseOwners", (string)null);
+                    b.ToTable("HouseOwners");
                 });
 
             modelBuilder.Entity("HouseOwnerWebApi.Models.Image", b =>
@@ -241,7 +244,7 @@ namespace HouseOwnerWebApi.Migrations
 
                     b.HasIndex("AnnouncmentId");
 
-                    b.ToTable("Images", (string)null);
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("HouseOwnerWebApi.Models.InterierCompany", b =>
@@ -264,7 +267,7 @@ namespace HouseOwnerWebApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("InterierCompanies", (string)null);
+                    b.ToTable("InterierCompanies");
                 });
 
             modelBuilder.Entity("HouseOwnerWebApi.Models.Portfolio", b =>
@@ -300,7 +303,7 @@ namespace HouseOwnerWebApi.Migrations
 
                     b.HasIndex("InterierCompanyId");
 
-                    b.ToTable("Portfolios", (string)null);
+                    b.ToTable("Portfolios");
                 });
 
             modelBuilder.Entity("HouseOwnerWebApi.Models.Price", b =>
@@ -342,7 +345,7 @@ namespace HouseOwnerWebApi.Migrations
                         .IsUnique()
                         .HasFilter("[AnnouncmentId] IS NOT NULL");
 
-                    b.ToTable("Prices", (string)null);
+                    b.ToTable("Prices");
                 });
 
             modelBuilder.Entity("HouseOwnerWebApi.Models.SocialLink", b =>
@@ -377,7 +380,7 @@ namespace HouseOwnerWebApi.Migrations
 
                     b.HasIndex("AgencyId");
 
-                    b.ToTable("SocialLinks", (string)null);
+                    b.ToTable("SocialLinks");
                 });
 
             modelBuilder.Entity("HouseOwnerWebApi.Models.Address", b =>
