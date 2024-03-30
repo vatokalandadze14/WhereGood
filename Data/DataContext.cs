@@ -18,5 +18,6 @@ namespace HouseOwnerWebApi.Data
         public DbSet<InterierCompany> InterierCompanies { get; set; }
         public DbSet<SocialLink> SocialLinks { get; set; }
         public DbSet<Portfolio> Portfolios { get; set; }
+        public DbSet<Company> Companies { get; set; }
     }
 }

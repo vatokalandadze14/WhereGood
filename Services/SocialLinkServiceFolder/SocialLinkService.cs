@@ -19,7 +19,8 @@ namespace HouseOwnerWebApi.Services.SocialLinkServiceFolder
             {
                 Type = socialLink.Type,
                 Url = socialLink.Url,
-                AgencyId = socialLink.AgencyId
+                AgencyId = socialLink.AgencyId,
+                CompanyId = socialLink.CompanyId
             };
 
             _context.SocialLinks.Add(newSocialLink);

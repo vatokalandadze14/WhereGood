@@ -1,9 +1,12 @@
 using HouseOwnerWebApi.Data;
+using HouseOwnerWebApi.Models;
 using HouseOwnerWebApi.Services.AddressServiceFolder;
 using HouseOwnerWebApi.Services.AgencyServiceFolder;
 using HouseOwnerWebApi.Services.AnnouncmentServiceFolder;
+using HouseOwnerWebApi.Services.CompanyServiceFolder;
 using HouseOwnerWebApi.Services.HouseOwnerServiceFolder;
 using HouseOwnerWebApi.Services.ImagesServiceFolder;
+using HouseOwnerWebApi.Services.InterierCompaniesServiceFolder;
 using HouseOwnerWebApi.Services.PriceServiceFolder;
 using HouseOwnerWebApi.Services.SocialLinkServiceFolder;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +32,8 @@ builder.Services.AddScoped<IPriceService, PriceService>();
 builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<ISocialLinkService, SocialLinkService>();
 builder.Services.AddScoped<IAgencyService, AgencyService>();
+builder.Services.AddScoped<ICompanyService, CompanyService>();
+builder.Services.AddScoped<IInterierCompanyService, InterierCompanyService>();
 
 var app = builder.Build();
 

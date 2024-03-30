@@ -14,5 +14,7 @@ namespace HouseOwnerWebApi.Models
         public string? StreetNumber { get; set; }
         public Guid? AnnouncmentId { get; set; }
         public Guid? AgencyId { get; set; }
+        public Guid? CompanyId { get; set; }
+        public Guid? InterierCompanyId { get; set; }
     }
 }

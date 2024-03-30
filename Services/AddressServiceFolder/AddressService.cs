@@ -26,7 +26,8 @@ namespace HouseOwnerWebApi.Services.AddressServiceFolder
                 Street = address.street,
                 StreetNumber = address.streetNumber,
                 AnnouncmentId = address.AnnouncmentId,
-                AgencyId = address.AgencyId
+                AgencyId = address.AgencyId,
+                CompanyId = address.CompanyId
             };
 
             if (address.AgencyId != null)

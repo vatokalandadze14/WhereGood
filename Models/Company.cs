@@ -2,7 +2,7 @@
 
 namespace HouseOwnerWebApi.Models
 {
-    public class Company : BaseEntity
+    public class Company : Agency
     {
     }
 }

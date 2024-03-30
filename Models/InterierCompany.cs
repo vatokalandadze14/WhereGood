@@ -2,7 +2,7 @@
 
 namespace HouseOwnerWebApi.Models
 {
-    public class InterierCompany : BaseEntity
+    public class InterierCompany : Company
     {
         public ICollection<Portfolio> Portfolios { get; set; }
     }
