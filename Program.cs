@@ -1,5 +1,7 @@
 using HouseOwnerWebApi.Data;
 using HouseOwnerWebApi.Models;
+using HouseOwnerWebApi.Models.RepositoryInterface;
+using HouseOwnerWebApi.Repositories;
 using HouseOwnerWebApi.Services.AddressServiceFolder;
 using HouseOwnerWebApi.Services.AgencyServiceFolder;
 using HouseOwnerWebApi.Services.AnnouncmentServiceFolder;
@@ -34,6 +36,9 @@ builder.Services.AddScoped<ISocialLinkService, SocialLinkService>();
 builder.Services.AddScoped<IAgencyService, AgencyService>();
 builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<IInterierCompanyService, InterierCompanyService>();
+
+builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+
 
 var app = builder.Build();
 
