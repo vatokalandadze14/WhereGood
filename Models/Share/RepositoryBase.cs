@@ -6,7 +6,6 @@ namespace HouseOwnerWebApi.Models.Share
     public class RepositoryBase <T> where T : BaseEntity
     {
         protected DataContext _context;
-        
         protected RepositoryBase(DataContext context) { 
             _context = context;
         }
@@ -50,7 +49,7 @@ namespace HouseOwnerWebApi.Models.Share
             existingEntity.DeletedAt = DateTime.Now;
             await _context.SaveChangesAsync();
 
-            return await _context.Set<T>().ToListAsync();  
+            return await _context.Set<T>().Where(x => x.IsDeleted == false).ToListAsync();  
         }
     }
 }

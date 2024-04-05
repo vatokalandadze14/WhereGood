@@ -1,8 +1,13 @@
-﻿
+﻿using HouseOwnerWebApi.DTOs;
+
 namespace HouseOwnerWebApi.Models.RepositoryInterface
 {
-    public interface IAgencyInterface
+    public interface IAgencyRepository
     {
-        public Task<List<Agency>> GetAll();
+        public Task<ICollection<Agency>> GetAllAsync();
+        public Task<Agency> GetSingleAsync(Guid id);
+        public Task<Agency> AddAsync(AgencyDto address);
+        public Task<Agency> UpdateAsync(Guid id, AgencyDto address);
+        public Task<ICollection<Agency>> DeleteAsync(Guid id);
     }
 }

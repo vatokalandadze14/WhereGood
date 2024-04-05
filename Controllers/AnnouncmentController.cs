@@ -1,6 +1,6 @@
 ﻿using HouseOwnerWebApi.DTOs;
 using HouseOwnerWebApi.Models;
-using HouseOwnerWebApi.Services.AnnouncmentServiceFolder;
+using HouseOwnerWebApi.Models.ServiceInterface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

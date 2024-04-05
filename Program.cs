@@ -1,16 +1,9 @@
 using HouseOwnerWebApi.Data;
 using HouseOwnerWebApi.Models;
 using HouseOwnerWebApi.Models.RepositoryInterface;
+using HouseOwnerWebApi.Models.ServiceInterface;
 using HouseOwnerWebApi.Repositories;
-using HouseOwnerWebApi.Services.AddressServiceFolder;
-using HouseOwnerWebApi.Services.AgencyServiceFolder;
-using HouseOwnerWebApi.Services.AnnouncmentServiceFolder;
-using HouseOwnerWebApi.Services.CompanyServiceFolder;
-using HouseOwnerWebApi.Services.HouseOwnerServiceFolder;
-using HouseOwnerWebApi.Services.ImagesServiceFolder;
-using HouseOwnerWebApi.Services.InterierCompaniesServiceFolder;
-using HouseOwnerWebApi.Services.PriceServiceFolder;
-using HouseOwnerWebApi.Services.SocialLinkServiceFolder;
+using HouseOwnerWebApi.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -37,7 +30,14 @@ builder.Services.AddScoped<IAgencyService, AgencyService>();
 builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<IInterierCompanyService, InterierCompanyService>();
 
+builder.Services.AddScoped<IHouseOwnerInterface, HouseOwnerRepository>();
+builder.Services.AddScoped<IAnnouncmentInterface, AnnouncmentRepository>();
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+builder.Services.AddScoped<IAgencyRepository, AgencyRepository>();
+builder.Services.AddScoped<ICompanyInterface, CompanyRepository>();
+builder.Services.AddScoped<IImageInterface, ImageRepository>();
+
+
 
 
 var app = builder.Build();

@@ -1,6 +1,6 @@
 ﻿using HouseOwnerWebApi.DTOs;
 using HouseOwnerWebApi.Models;
-using HouseOwnerWebApi.Services.PortfolioServiceFolder;
+using HouseOwnerWebApi.Models.ServiceInterface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
