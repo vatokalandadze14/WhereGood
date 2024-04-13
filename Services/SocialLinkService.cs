@@ -2,6 +2,7 @@
 using HouseOwnerWebApi.DTOs;
 using HouseOwnerWebApi.Models;
 using HouseOwnerWebApi.Models.ServiceInterface;
+using HouseOwnerWebApi.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace HouseOwnerWebApi.Services
@@ -9,67 +10,36 @@ namespace HouseOwnerWebApi.Services
     public class SocialLinkService : ISocialLinkService
     {
         private readonly DataContext _context;
-        public SocialLinkService(DataContext context)
+        private readonly SocialLinkRepository _repository;
+        public SocialLinkService(DataContext context, SocialLinkRepository repository)
         {
             _context = context;
+            _repository = repository;
         }
 
         public async Task<SocialLink> AddSocialLink(SocialLinkDto socialLink)
         {
-            var newSocialLink = new SocialLink
-            {
-                Type = socialLink.Type,
-                Url = socialLink.Url,
-                AgencyId = socialLink.AgencyId,
-                CompanyId = socialLink.CompanyId
-            };
-
-            _context.SocialLinks.Add(newSocialLink);
-            await _context.SaveChangesAsync();
-
-            return newSocialLink;
+            return await _repository.AddAsync(socialLink);
         }
 
         public async Task<ICollection<SocialLink>> DeleteSocialLink(Guid id)
         {
-            var socialLink = await _context.SocialLinks.FindAsync(id);
-            if (socialLink == null)
-                return null;
-
-            socialLink.IsDeleted = true;
-            socialLink.DeletedAt = DateTime.Now;
-
-            await _context.SaveChangesAsync();
-
-            return await _context.SocialLinks.ToListAsync();
+            return await _repository.DeleteAsync(id);
         }
 
         public async Task<SocialLink> GetSocialLink(Guid id)
         {
-            var socialLink = await _context.SocialLinks.FindAsync(id);
-            if (socialLink == null)
-                return null;
-
-            return socialLink;
+            return await _repository.GetSingleAsync(id);
         }
 
         public async Task<ICollection<SocialLink>> GetSocialLinks()
         {
-            return await _context.SocialLinks.Where(x => x.IsDeleted == false).ToListAsync();
+            return await _repository.GetAllAsync();
         }
 
         public async Task<SocialLink> UpdateSocialLink(Guid id, SocialLinkDto socialLink)
         {
-            var newSocialLink = await _context.SocialLinks.FindAsync(id);
-            if (newSocialLink == null)
-                return null;
-
-            newSocialLink.Type = socialLink.Type;
-            newSocialLink.Url = socialLink.Url;
-
-            await _context.SaveChangesAsync();
-
-            return newSocialLink;
+            return await _repository.UpdateAsync(id, socialLink);
         }
     }
 }

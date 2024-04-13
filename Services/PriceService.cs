@@ -2,6 +2,7 @@
 using HouseOwnerWebApi.DTOs;
 using HouseOwnerWebApi.Models;
 using HouseOwnerWebApi.Models.ServiceInterface;
+using HouseOwnerWebApi.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace HouseOwnerWebApi.Services
@@ -9,67 +10,35 @@ namespace HouseOwnerWebApi.Services
     public class PriceService : IPriceService
     {
         private readonly DataContext _context;
-        public PriceService(DataContext context)
+        private readonly PriceRepository _repository;
+        public PriceService(DataContext context, PriceRepository repository)
         {
             _context = context;
+            _repository = repository;
         }
         public async Task<Price> AddPrice(PriceDto price)
         {
-            var newPrice = new Price
-            {
-                TotalGEL = price.TotalGEL,
-                TotalUSD = price.TotalUSD,
-                SquareMeterGEL = price.SquareMeterGEL,
-                SquareMeterUSD = price.SquareMeterUSD,
-                AnnouncmentId = price.AnnouncmentId
-            };
-
-            _context.Prices.Add(newPrice);
-            await _context.SaveChangesAsync();
-
-            return newPrice;
+            return await _repository.AddAsync(price);
         }
 
         public async Task<ICollection<Price>> DeletePrice(Guid id)
         {
-            var price = await _context.Prices.FindAsync(id);
-            if (price == null)
-                return null;
-
-            price.IsDeleted = true;
-            price.DeletedAt = DateTime.Now;
-            await _context.SaveChangesAsync();
-
-            return await _context.Prices.ToListAsync();
+            return await _repository.DeleteAsync(id);
         }
 
         public async Task<Price> GetPrice(Guid id)
         {
-            var price = await _context.Prices.FindAsync(id);
-            if (price == null)
-                return null;
-
-            return price;
+            return await _repository.GetSingleAsync(id);
         }
 
         public async Task<ICollection<Price>> GetPrices()
         {
-            return await _context.Prices.Where(x => x.IsDeleted == false).ToListAsync();
+            return await _repository.GetAllAsync();
         }
 
-        public async Task<Price> UpdatePrise(Guid id, PriceDto price)
+        public async Task<Price> UpdatePrice(Guid id, PriceDto price)
         {
-            var newPrice = await _context.Prices.FindAsync(id);
-            if (newPrice == null)
-                return null;
-
-            newPrice.SquareMeterGEL = price.SquareMeterGEL;
-            newPrice.SquareMeterUSD = price.SquareMeterUSD;
-            newPrice.TotalGEL = price.TotalGEL;
-            newPrice.TotalUSD = price.TotalUSD;
-
-            await _context.SaveChangesAsync();
-            return newPrice;
+            return await _repository.UpdateAsync(id, price);
         }
     }
 }

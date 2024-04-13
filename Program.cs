@@ -29,15 +29,17 @@ builder.Services.AddScoped<ISocialLinkService, SocialLinkService>();
 builder.Services.AddScoped<IAgencyService, AgencyService>();
 builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<IInterierCompanyService, InterierCompanyService>();
+builder.Services.AddScoped<IPortfolioService, PortfolioService>();
 
 builder.Services.AddScoped<IHouseOwnerInterface, HouseOwnerRepository>();
 builder.Services.AddScoped<IAnnouncmentInterface, AnnouncmentRepository>();
-builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+builder.Services.AddScoped<IImageInterface, ImageRepository>();
+builder.Services.AddScoped<IAddressRepository, AddressRepository>(); 
 builder.Services.AddScoped<IAgencyRepository, AgencyRepository>();
 builder.Services.AddScoped<ICompanyInterface, CompanyRepository>();
-builder.Services.AddScoped<IImageInterface, ImageRepository>();
-
-
+builder.Services.AddScoped<IPriceInterface, PriceRepository>();
+builder.Services.AddScoped<ISocialLinkInterface, SocialLinkRepository>();
+builder.Services.AddScoped<IInterierCompanyInterface, InterierCompanyRepository>();
 
 
 var app = builder.Build();
