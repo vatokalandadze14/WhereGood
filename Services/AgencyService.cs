@@ -1,19 +1,15 @@
-﻿using HouseOwnerWebApi.Data;
-using HouseOwnerWebApi.DTOs;
+﻿using HouseOwnerWebApi.DTOs;
 using HouseOwnerWebApi.Models;
+using HouseOwnerWebApi.Models.RepositoryInterface;
 using HouseOwnerWebApi.Models.ServiceInterface;
-using HouseOwnerWebApi.Repositories;
-using Microsoft.EntityFrameworkCore;
 
 namespace HouseOwnerWebApi.Services
 {
     public class AgencyService : IAgencyService
     {
-        private readonly DataContext _context;
-        private readonly AgencyRepository _agencyRepository;
-        public AgencyService(DataContext context, AgencyRepository agencyRepository)
+        private readonly IAgencyRepository _agencyRepository;
+        public AgencyService(IAgencyRepository agencyRepository)
         {
-            _context = context;
             _agencyRepository = agencyRepository;
         }
         public async Task<Agency> AddAgency(AgencyDto agency)
@@ -21,22 +17,22 @@ namespace HouseOwnerWebApi.Services
             return await _agencyRepository.AddAsync(agency);
         }
 
-        public async Task<ICollection<Agency>> DeleteAgency(Guid id)
+        public async Task<ICollection<Agency>?> DeleteAgency(Guid id)
         {
-            return await _agencyRepository.DeleteAsync(id);
+            return await _agencyRepository.DeleteSingleAsync(id);
         }
 
         public async Task<ICollection<Agency>> GetAgencies()
         {
-            return await _agencyRepository.GetAllAsync();
+            return await _agencyRepository.GetAsync();
         }
 
         public async Task<Agency?> GetAgency(Guid id)
         {
-            return await _agencyRepository.GetSingleAsync(id);
+            return await _agencyRepository.GetOneAsync(id);
         }
 
-        public async Task<Agency> UpdateAgency(Guid id, AgencyDto agency)
+        public async Task<Agency?> UpdateAgency(Guid id, AgencyDto agency)
         {
             return await _agencyRepository.UpdateAsync(id, agency);
         }

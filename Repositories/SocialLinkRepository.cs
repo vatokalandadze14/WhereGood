@@ -13,12 +13,12 @@ namespace HouseOwnerWebApi.Repositories
         {
         }
 
-        public async Task<ICollection<SocialLink>> GetAllAsync()
+        public async Task<ICollection<SocialLink>> GetAsync()
         {
             return await _context.SocialLinks.Where(x => x.IsDeleted == false).ToListAsync();
         }
 
-        public async Task<SocialLink> GetSingleAsync(Guid id)
+        public async Task<SocialLink?> GetOneAsync(Guid id)
         {
             var socialLink = await _context.SocialLinks
                 .Where(x => x.IsDeleted == false)
@@ -46,7 +46,7 @@ namespace HouseOwnerWebApi.Repositories
             return newSocialLink;
         }
 
-        public async Task<SocialLink> UpdateAsync(Guid id, SocialLinkDto socialLink)
+        public async Task<SocialLink?> UpdateAsync(Guid id, SocialLinkDto socialLink)
         {
             var newSocialLink = await _context.SocialLinks
                 .Where(x => x.IsDeleted == false)
@@ -63,7 +63,7 @@ namespace HouseOwnerWebApi.Repositories
             return newSocialLink;
         }
 
-        public async Task<ICollection<SocialLink>> DeleteAsync(Guid id)
+        public async Task<ICollection<SocialLink>?> DeleteSingleAsync(Guid id)
         {
             var socialLink = await _context.SocialLinks
                .Where(x => x.IsDeleted == false)

@@ -25,7 +25,6 @@ namespace HouseOwnerWebApi.Migrations
             modelBuilder.Entity("HouseOwnerWebApi.Models.Address", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("AgencyId")
@@ -71,7 +70,6 @@ namespace HouseOwnerWebApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Street")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StreetNumber")
@@ -93,7 +91,9 @@ namespace HouseOwnerWebApi.Migrations
             modelBuilder.Entity("HouseOwnerWebApi.Models.Agency", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AddressId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedOn")
@@ -103,7 +103,6 @@ namespace HouseOwnerWebApi.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Discriminator")
@@ -115,14 +114,12 @@ namespace HouseOwnerWebApi.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Mail")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PhoneNumber")
@@ -130,6 +127,9 @@ namespace HouseOwnerWebApi.Migrations
 
                     b.Property<string>("Site")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("SocialLinksId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -143,7 +143,6 @@ namespace HouseOwnerWebApi.Migrations
             modelBuilder.Entity("HouseOwnerWebApi.Models.Announcment", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedOn")
@@ -153,7 +152,6 @@ namespace HouseOwnerWebApi.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("HouseOwnerId")
@@ -169,11 +167,9 @@ namespace HouseOwnerWebApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ShortDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Type")
@@ -189,11 +185,13 @@ namespace HouseOwnerWebApi.Migrations
             modelBuilder.Entity("HouseOwnerWebApi.Models.HouseOwner", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Agent")
                         .HasColumnType("bit");
+
+                    b.Property<Guid>("AnnouncmentId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -208,14 +206,12 @@ namespace HouseOwnerWebApi.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PhoneNumber")
                         .HasColumnType("int");
 
                     b.Property<string>("SurName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -245,11 +241,9 @@ namespace HouseOwnerWebApi.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Url")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -272,7 +266,6 @@ namespace HouseOwnerWebApi.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("HtmlDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("InterierCompanyId")
@@ -285,7 +278,6 @@ namespace HouseOwnerWebApi.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -298,7 +290,6 @@ namespace HouseOwnerWebApi.Migrations
             modelBuilder.Entity("HouseOwnerWebApi.Models.Price", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("AnnouncmentId")
@@ -368,7 +359,6 @@ namespace HouseOwnerWebApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Url")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -389,6 +379,9 @@ namespace HouseOwnerWebApi.Migrations
                 {
                     b.HasBaseType("HouseOwnerWebApi.Models.Company");
 
+                    b.Property<Guid>("PortfolioId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasDiscriminator().HasValue("InterierCompany");
                 });
 
@@ -396,25 +389,29 @@ namespace HouseOwnerWebApi.Migrations
                 {
                     b.HasOne("HouseOwnerWebApi.Models.Agency", null)
                         .WithOne("Address")
-                        .HasForeignKey("HouseOwnerWebApi.Models.Address", "AgencyId");
+                        .HasForeignKey("HouseOwnerWebApi.Models.Address", "AgencyId")
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("HouseOwnerWebApi.Models.Announcment", null)
                         .WithOne("Address")
-                        .HasForeignKey("HouseOwnerWebApi.Models.Address", "AnnouncmentId");
+                        .HasForeignKey("HouseOwnerWebApi.Models.Address", "AnnouncmentId")
+                        .OnDelete(DeleteBehavior.NoAction);
                 });
 
             modelBuilder.Entity("HouseOwnerWebApi.Models.Announcment", b =>
                 {
                     b.HasOne("HouseOwnerWebApi.Models.HouseOwner", null)
                         .WithMany("Announcments")
-                        .HasForeignKey("HouseOwnerId");
+                        .HasForeignKey("HouseOwnerId")
+                        .OnDelete(DeleteBehavior.NoAction);
                 });
 
             modelBuilder.Entity("HouseOwnerWebApi.Models.Image", b =>
                 {
                     b.HasOne("HouseOwnerWebApi.Models.Announcment", null)
                         .WithMany("Images")
-                        .HasForeignKey("AnnouncmentId");
+                        .HasForeignKey("AnnouncmentId")
+                        .OnDelete(DeleteBehavior.NoAction);
                 });
 
             modelBuilder.Entity("HouseOwnerWebApi.Models.Portfolio", b =>
@@ -428,14 +425,16 @@ namespace HouseOwnerWebApi.Migrations
                 {
                     b.HasOne("HouseOwnerWebApi.Models.Announcment", null)
                         .WithOne("Price")
-                        .HasForeignKey("HouseOwnerWebApi.Models.Price", "AnnouncmentId");
+                        .HasForeignKey("HouseOwnerWebApi.Models.Price", "AnnouncmentId")
+                        .OnDelete(DeleteBehavior.NoAction);
                 });
 
             modelBuilder.Entity("HouseOwnerWebApi.Models.SocialLink", b =>
                 {
                     b.HasOne("HouseOwnerWebApi.Models.Agency", null)
                         .WithMany("SocialLinks")
-                        .HasForeignKey("AgencyId");
+                        .HasForeignKey("AgencyId")
+                        .OnDelete(DeleteBehavior.NoAction);
                 });
 
             modelBuilder.Entity("HouseOwnerWebApi.Models.Agency", b =>
@@ -451,8 +450,7 @@ namespace HouseOwnerWebApi.Migrations
 
                     b.Navigation("Images");
 
-                    b.Navigation("Price")
-                        .IsRequired();
+                    b.Navigation("Price");
                 });
 
             modelBuilder.Entity("HouseOwnerWebApi.Models.HouseOwner", b =>

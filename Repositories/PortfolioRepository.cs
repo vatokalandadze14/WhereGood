@@ -28,7 +28,7 @@ namespace HouseOwnerWebApi.Repositories
             return newPortfolio;
         }
 
-        public async Task<ICollection<Portfolio>> DeleteAsync(Guid id)
+        public async Task<ICollection<Portfolio>?> DeleteSingleAsync(Guid id)
         {
             var portfolio = await _context.Portfolios.Where(x => x.IsDeleted == false).FirstOrDefaultAsync(x => x.Id == id);
             if (portfolio == null)
@@ -42,12 +42,12 @@ namespace HouseOwnerWebApi.Repositories
             return await _context.Portfolios.ToListAsync();
         }
 
-        public async Task<ICollection<Portfolio>> GetAllAsync()
+        public async Task<ICollection<Portfolio>> GetAsync()
         {
             return await _context.Portfolios.Where(x => x.IsDeleted == false).ToListAsync();
         }
 
-        public async Task<Portfolio> GetSingleAsync(Guid id)
+        public async Task<Portfolio?> GetOneAsync(Guid id)
         {
             var portfolio = await _context.Portfolios
                 .Where(x => x.IsDeleted == false)
@@ -59,7 +59,7 @@ namespace HouseOwnerWebApi.Repositories
             return portfolio;
         }
 
-        public async Task<Portfolio> UpdateAsync(Guid id, PortfolioDto portfolio)
+        public async Task<Portfolio?> UpdateAsync(Guid id, PortfolioDto portfolio)
         {
             var newPortfolio = await _context.Portfolios.FindAsync(id);
             if (newPortfolio == null)

@@ -1,6 +1,5 @@
 ﻿using HouseOwnerWebApi.Data;
 using HouseOwnerWebApi.DTOs;
-using HouseOwnerWebApi.Migrations;
 using HouseOwnerWebApi.Models;
 using HouseOwnerWebApi.Models.RepositoryInterface;
 using HouseOwnerWebApi.Models.Share;
@@ -14,12 +13,12 @@ namespace HouseOwnerWebApi.Repositories
         {
         }
 
-        public async Task<ICollection<Image>> GetAllAsync()
+        public async Task<ICollection<Image>> GetAsync()
         {
             return await _context.Images.Where(x => x.IsDeleted == false).ToListAsync();
         }
 
-        public async Task<Image> GetSingleAsync(Guid id)
+        public async Task<Image?> GetOneAsync(Guid id)
         {
             var image = await _context.Images
                 .Where(x => x.IsDeleted == false)
@@ -46,7 +45,7 @@ namespace HouseOwnerWebApi.Repositories
             return newImage;
         }
 
-        public async Task<Image> UpdateAsync(Guid id, ImageCreateDto image)
+        public async Task<Image?> UpdateAsync(Guid id, ImageCreateDto image)
         {
             var newImage = await _context.Images.FindAsync(id);
             if (newImage == null)
@@ -59,7 +58,7 @@ namespace HouseOwnerWebApi.Repositories
             return newImage;
         }
 
-        public async Task<ICollection<Image>> DeleteAsync(Guid id)
+        public async Task<ICollection<Image>?> DeleteSingleAsync(Guid id)
         {
             var image = await _context.Images
                 .Where(x => x.IsDeleted == false)

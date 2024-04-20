@@ -12,17 +12,6 @@ namespace HouseOwnerWebApi.Repositories
         public AddressRepository(DataContext context) : base(context)
         {
         }
-
-        public async Task<ICollection<Address>> GetAllAsync()
-        {
-            return await _context.Addresses.Where(x => x.IsDeleted == false).ToListAsync();
-        }
-
-        public async Task<Address> GetSingleAsync(Guid id)
-        {
-            return await _context.Addresses.Where(x => x.IsDeleted == false).FirstOrDefaultAsync(x => x.Id == id);
-        }
-
         public async Task<Address> AddAsync(AddressDto address)
         {
             var newAddress = new Address
@@ -40,13 +29,33 @@ namespace HouseOwnerWebApi.Repositories
                 CompanyId = address.CompanyId
             };
 
-            if (newAddress == null)
-                return null;
-
             return await AddAsync(newAddress);
         }
 
-        public async Task<Address> UpdateAsync(Guid id, AddressDto address)
+        public async Task<ICollection<Address>?> DeleteSingleAsync(Guid id)
+        {
+            var address = await _context.Addresses.FindAsync(id);
+            if (address == null)
+                return null;
+
+            address.IsDeleted = true;
+            address.DeletedAt = DateTime.Now;
+            await _context.SaveChangesAsync();
+
+            return await _context.Addresses.ToListAsync();
+        }
+
+        public async Task<ICollection<Address>> GetAsync()
+        {
+            return await _context.Addresses.ToListAsync();
+        }
+
+        public async Task<Address?> GetOneAsync(Guid id)
+        {
+            return await _context.Addresses.Where(x => x.IsDeleted == false).FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<Address?> UpdateAsync(Guid id, AddressDto address)
         {
             var newAddress = await _context.Addresses.FindAsync(id);
             if (newAddress == null)
@@ -63,19 +72,6 @@ namespace HouseOwnerWebApi.Repositories
 
             await _context.SaveChangesAsync();
             return newAddress;
-        }
-
-        public async Task<ICollection<Address>> DeleteAsync(Guid id)
-        {
-            var address = await _context.Addresses.FindAsync(id);
-            if (address == null)
-                return null;
-
-            address.IsDeleted = true;
-            address.DeletedAt = DateTime.Now;
-            await _context.SaveChangesAsync();
-
-            return await _context.Addresses.ToListAsync();
         }
     }
 }

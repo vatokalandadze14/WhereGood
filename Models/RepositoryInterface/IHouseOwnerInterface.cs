@@ -4,10 +4,10 @@ namespace HouseOwnerWebApi.Models.RepositoryInterface
 {
     public interface IHouseOwnerInterface
     {
-        public Task<ICollection<HouseOwner>> GetAllAsync();
-        public Task<HouseOwner> GetSingleAsync(Guid id);
+        public Task<ICollection<HouseOwner>> GetAsync();
+        public Task<HouseOwner?> GetOneAsync(Guid id);
         public Task<HouseOwner> AddAsync(HouseOwnerDto houseOwner);
-        public Task<HouseOwner> UpdateAsync(Guid id, HouseOwnerDto houseOwner);
-        public Task<ICollection<HouseOwner>> DeleteAsync(Guid id);
+        public Task<HouseOwner?> UpdateAsync(Guid id, HouseOwnerDto houseOwner);
+        public Task<ICollection<HouseOwner>?> DeleteSingleAsync(Guid id);
     }
 }

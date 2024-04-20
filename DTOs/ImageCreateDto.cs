@@ -2,6 +2,9 @@
 
 namespace HouseOwnerWebApi.DTOs
 {
-    public record struct ImageCreateDto(Guid Id, string name, string url, Guid AnnouncmentId);
-
+    public record struct ImageCreateDto(
+        string name,
+        string url,
+        Guid AnnouncmentId
+        );
 }

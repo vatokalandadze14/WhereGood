@@ -12,12 +12,11 @@ namespace HouseOwnerWebApi.Repositories
         public AgencyRepository(DataContext context) : base (context)
         {
         }
-
-        public async Task<ICollection<Agency>> GetAllAsync()
+        public async Task<ICollection<Agency>> GetAsync()
         {
             return await _context.Agencies.Where(x => x.IsDeleted == false).ToListAsync();
         }
-        public async Task<Agency?> GetSingleAsync(Guid id)
+        public async Task<Agency?> GetOneAsync(Guid id)
         {
             return await _context.Agencies.Where(x => x.IsDeleted == false).FirstOrDefaultAsync(x => x.Id == id);
         }
@@ -29,15 +28,17 @@ namespace HouseOwnerWebApi.Repositories
                 Mail = agency.Mail,
                 PhoneNumber = agency.PhoneNumber,
                 Site = agency.Site,
-                Description = agency.Description
+                Description = agency.Description,
+                AddressId = agency.AddressId,
+                SocialLinksId = agency.SocialLinksId
             };
 
-            _context.Agencies.AddAsync(agent);
+            _context.Agencies.Add(agent);
             await _context.SaveChangesAsync();
 
             return agent;
         }
-        public async Task<Agency> UpdateAsync(Guid id, AgencyDto agency)
+        public async Task<Agency?> UpdateAsync(Guid id, AgencyDto agency)
         {
             var agent = await _context.Agencies.FindAsync(id);
             if (agent == null)
@@ -53,7 +54,7 @@ namespace HouseOwnerWebApi.Repositories
 
             return agent;
         }
-        public async Task<ICollection<Agency>> DeleteAsync(Guid id)
+        public async Task<ICollection<Agency>?> DeleteSingleAsync(Guid id)
         {
             var agent = await _context.Agencies.FindAsync(id);
             if (agent == null)

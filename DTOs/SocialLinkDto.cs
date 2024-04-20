@@ -2,5 +2,10 @@
 
 namespace HouseOwnerWebApi.DTOs
 {
-    public record struct SocialLinkDto(Guid Id, SocialEnum Type, string Url, Guid AgencyId, Guid CompanyId);
+    public record struct SocialLinkDto(
+        SocialEnum Type, 
+        string Url, Guid 
+        AgencyId, 
+        Guid CompanyId
+        );
 }

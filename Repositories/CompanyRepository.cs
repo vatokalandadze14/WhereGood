@@ -13,12 +13,12 @@ namespace HouseOwnerWebApi.Repositories
         {
         }
 
-        public async Task<ICollection<Company>> GetAllAsync()
+        public async Task<ICollection<Company>> GetAsync()
         {
             return await _context.Companies.Where(x => x.IsDeleted == false).Include(x => x.SocialLinks).ToListAsync();
         }
 
-        public async Task<Company> GetSingleAsync(Guid id)
+        public async Task<Company?> GetOneAsync(Guid id)
         {
             var company = await _context.Companies
                 .Where(x => x.IsDeleted == false)
@@ -48,7 +48,7 @@ namespace HouseOwnerWebApi.Repositories
             return newCompany;
         }
 
-        public async Task<Company> UpdateAsync(Guid id, CompanyDto company)
+        public async Task<Company?> UpdateAsync(Guid id, CompanyDto company)
         {
             var newCompany = await _context.Companies.FindAsync(id);
             if (newCompany == null)
@@ -64,7 +64,7 @@ namespace HouseOwnerWebApi.Repositories
             return newCompany;
         }
 
-        public async Task<ICollection<Company>> DeleteAsync(Guid id)
+        public async Task<ICollection<Company>?> DeleteSingleAsync(Guid id)
         {
             var newCompany = await _context.Companies.FindAsync(id);
             if (newCompany == null)

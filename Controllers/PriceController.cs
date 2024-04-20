@@ -33,7 +33,7 @@ namespace HouseOwnerWebApi.Controllers
         [HttpPut]
         public async Task<ActionResult<Price>> UpdatePrice(Guid id, PriceDto price)
         {
-            return Ok(await priceService.UpdatePrise(id, price));
+            return Ok(await priceService.UpdatePrice(id, price));
         }
         [HttpDelete]
         public async Task<ActionResult<ICollection<Price>>> DeletePrice(Guid id)

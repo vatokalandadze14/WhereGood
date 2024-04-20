@@ -11,11 +11,9 @@ namespace HouseOwnerWebApi.Services
 {
     public class HouseOwnerService : IHouseOwnerService
     {
-        private readonly DataContext _context;
         private readonly IHouseOwnerInterface _repository;
-        public HouseOwnerService(DataContext context, IHouseOwnerInterface repository)
+        public HouseOwnerService(IHouseOwnerInterface repository)
         {
-            _context = context;
             _repository = repository;
         }
         public async Task<HouseOwner> AddHouseOwner(HouseOwnerDto houseOwner)
@@ -23,22 +21,22 @@ namespace HouseOwnerWebApi.Services
             return await _repository.AddAsync(houseOwner);
         }
 
-        public async Task<ICollection<HouseOwner>> DeleteHouseOwner(Guid id)
+        public async Task<ICollection<HouseOwner>?> DeleteHouseOwner(Guid id)
         {
-            return await _repository.DeleteAsync(id);
+            return await _repository.DeleteSingleAsync(id);
         }
 
         public async Task<ICollection<HouseOwner>> GetHouseOwners()
         {
-            return await _repository.GetAllAsync();
+            return await _repository.GetAsync();
         }
 
-        public async Task<HouseOwner> GetSingleHouseOwner(Guid id)
+        public async Task<HouseOwner?> GetSingleHouseOwner(Guid id)
         {
-            return await _repository.GetSingleAsync(id);
+            return await _repository.GetOneAsync(id);
         }
 
-        public async Task<HouseOwner> UpdateHouseOwner(Guid id, HouseOwnerDto houseOwner)
+        public async Task<HouseOwner?> UpdateHouseOwner(Guid id, HouseOwnerDto houseOwner)
         {
             return await _repository.UpdateAsync(id, houseOwner);
         }

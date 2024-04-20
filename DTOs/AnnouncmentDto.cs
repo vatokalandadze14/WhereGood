@@ -1,8 +1,14 @@
-﻿using HouseOwnerWebApi.Migrations;
-using HouseOwnerWebApi.Models;
+﻿using HouseOwnerWebApi.Models;
 
 namespace HouseOwnerWebApi.DTOs
 {
-    public record struct AnnouncmentDto(Guid Id,string title, string description, string shortDescription, AppartmentTypeEnum type, PropertyTypeEnum propertyType, Guid houseOwnerId);
+    public record struct AnnouncmentDto(
+        string title, 
+        string description, 
+        string shortDescription, 
+        AppartmentTypeEnum type, 
+        PropertyTypeEnum propertyType, 
+        Guid houseOwnerId
+        );
 }
     

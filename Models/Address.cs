@@ -10,7 +10,7 @@ namespace HouseOwnerWebApi.Models
         public double Latitute { get; set; }
         public string? Region { get; set; }
         public string? District { get; set; }
-        public string Street { get; set; }
+        public string? Street { get; set; }
         public string? StreetNumber { get; set; }
         public Guid? AnnouncmentId { get; set; }
         public Guid? AgencyId { get; set; }

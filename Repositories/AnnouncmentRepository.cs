@@ -13,7 +13,7 @@ namespace HouseOwnerWebApi.Repositories
         {
         }
 
-        public async Task<ICollection<Announcment>> GetAllAsync()
+        public async Task<ICollection<Announcment>> GetAsync()
         {
             return await _context.Announcments
                 .Include(x => x.Images)
@@ -23,7 +23,7 @@ namespace HouseOwnerWebApi.Repositories
                 .ToListAsync();
         }
 
-        public async Task<Announcment> GetSingleAsync(Guid id)
+        public async Task<Announcment?> GetOneAsync(Guid id)
         {
             var announcment = await _context.Announcments
                 .Include(x => x.Price)
@@ -44,7 +44,8 @@ namespace HouseOwnerWebApi.Repositories
                 Description = announcment.description,
                 ShortDescription = announcment.shortDescription,
                 Type = announcment.type,
-                PropertyType = announcment.propertyType
+                PropertyType = announcment.propertyType,
+                HouseOwnerId = announcment.houseOwnerId
             };
 
             _context.Announcments.Add(newAnnouncment);
@@ -53,7 +54,7 @@ namespace HouseOwnerWebApi.Repositories
             return newAnnouncment;
         }
 
-        public async Task<Announcment> UpdateAsync(Guid id, AnnouncmentDto newAnnouncment)
+        public async Task<Announcment?> UpdateAsync(Guid id, AnnouncmentDto newAnnouncment)
         {
             var announcment = await _context.Announcments.FindAsync(id);
             if (announcment == null)
@@ -70,7 +71,7 @@ namespace HouseOwnerWebApi.Repositories
             return announcment;
         }
 
-        public async Task<ICollection<Announcment>> DeleteAsync(Guid id)
+        public async Task<ICollection<Announcment>?> DeleteSingleAsync(Guid id)
         {
             var announcment = await _context.Announcments.FindAsync(id);
             if (announcment == null)

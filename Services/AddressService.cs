@@ -11,35 +11,32 @@ namespace HouseOwnerWebApi.Services
 {
     public class AddressService : IAddressService
     {
-        private readonly DataContext _context;
         private readonly IAddressRepository addressRepository;
-        public AddressService(DataContext context, IAddressRepository addressRepository)
+        public AddressService(IAddressRepository addressRepository)
         {
-            _context = context;
             this.addressRepository = addressRepository;
         }
-        public async Task<Address>? AddAddress(AddressDto address)
+        public async Task<Address> AddAddress(AddressDto address)
         {
             return await addressRepository.AddAsync(address);
         }
 
-        public async Task<ICollection<Address>> DeleteAddress(Guid id)
+        public async Task<ICollection<Address>?> DeleteAddress(Guid id)
         {
-            await addressRepository.DeleteAsync(id);
-            return await _context.Addresses.ToListAsync();
+            return await addressRepository.DeleteSingleAsync(id);
         }
 
-        public async Task<Address> GetAddress(Guid id)
+        public async Task<Address?> GetAddress(Guid id)
         {
-            return await addressRepository.GetSingleAsync(id);
+            return await addressRepository.GetOneAsync(id);
         }
 
         public async Task<ICollection<Address>> GetAddresses()
         {
-            return await addressRepository.GetAllAsync();
+            return await addressRepository.GetAsync();
         }
 
-        public async Task<Address> UpdateAddress(Guid id, AddressDto address)
+        public async Task<Address?> UpdateAddress(Guid id, AddressDto address)
         {
             return await addressRepository.UpdateAsync(id, address);
         }

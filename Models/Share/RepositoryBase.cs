@@ -27,7 +27,7 @@ namespace HouseOwnerWebApi.Models.Share
             return t;
         }
 
-        public async Task<T> UpdateAsync(Guid id, T t)
+        public async Task<T?> UpdateAsync(Guid id, T t)
         {
             var existingEntity = await _context.Set<T>().FindAsync(id);
             if (existingEntity == null)
@@ -38,7 +38,7 @@ namespace HouseOwnerWebApi.Models.Share
             return t;
         }
 
-        public async Task<ICollection<T>> DeleteAsync(Guid id)
+        public async Task<ICollection<T>?> DeleteAsync(Guid id)
         {
             var existingEntity = await _context.Set<T>().FindAsync(id);
             if (existingEntity == null)

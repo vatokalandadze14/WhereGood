@@ -20,6 +20,7 @@ namespace HouseOwnerWebApi.Data.EntityConfiguration
                 .WithOne()
                 .HasForeignKey(x => x.AgencyId)
                 .OnDelete(DeleteBehavior.NoAction);
+
         }
     }
 }

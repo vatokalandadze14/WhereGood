@@ -13,7 +13,7 @@ namespace HouseOwnerWebApi.Repositories
         {
         }
 
-        public async Task<ICollection<HouseOwner>> GetAllAsync()
+        public async Task<ICollection<HouseOwner>> GetAsync()
         {
             return await _context.HouseOwners
                 .Include(a => a.Announcments)
@@ -21,7 +21,7 @@ namespace HouseOwnerWebApi.Repositories
                 .ToListAsync();
         }
 
-        public async Task<HouseOwner> GetSingleAsync(Guid id)
+        public async Task<HouseOwner?> GetOneAsync(Guid id)
         {
             var houseOwner = await _context.HouseOwners
                 .Where(x => x.IsDeleted == false)
@@ -50,7 +50,7 @@ namespace HouseOwnerWebApi.Repositories
             return newHouseOwner;
         }
 
-        public async Task<HouseOwner> UpdateAsync(Guid id, HouseOwnerDto houseOwner)
+        public async Task<HouseOwner?> UpdateAsync(Guid id, HouseOwnerDto houseOwner)
         {
             var foundedHouseOwner = await _context.HouseOwners.FindAsync(id);
             if (foundedHouseOwner == null)
@@ -65,7 +65,7 @@ namespace HouseOwnerWebApi.Repositories
             return foundedHouseOwner;
         }
 
-        public async Task<ICollection<HouseOwner>> DeleteAsync(Guid id)
+        public async Task<ICollection<HouseOwner>?> DeleteSingleAsync(Guid id)
         {
             var houseOwner = await _context.HouseOwners
                 .Where(x => x.IsDeleted == false)

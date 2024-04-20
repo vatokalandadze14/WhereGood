@@ -1,4 +1,10 @@
 ﻿namespace HouseOwnerWebApi.DTOs
 {
-    public record struct CompanyDto(Guid Id, string Name, string Mail, int PhoneNumber, string? Site, string Description);
+    public record struct CompanyDto(
+        string Name, 
+        string Mail, 
+        int PhoneNumber, 
+        string? Site, 
+        string Description
+        );
 }

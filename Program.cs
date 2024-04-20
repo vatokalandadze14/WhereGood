@@ -40,6 +40,7 @@ builder.Services.AddScoped<ICompanyInterface, CompanyRepository>();
 builder.Services.AddScoped<IPriceInterface, PriceRepository>();
 builder.Services.AddScoped<ISocialLinkInterface, SocialLinkRepository>();
 builder.Services.AddScoped<IInterierCompanyInterface, InterierCompanyRepository>();
+builder.Services.AddScoped<IPortfolioInterface, PortfolioRepository>();
 
 
 var app = builder.Build();

@@ -10,11 +10,9 @@ namespace HouseOwnerWebApi.Services
 {
     public class ImageService : IImageService
     {
-        private readonly DataContext _context;
         private readonly IImageInterface _repository;
-        public ImageService(DataContext context, IImageInterface repository)
+        public ImageService(IImageInterface repository)
         {
-            _context = context;
             _repository = repository;
         }
         public async Task<Image> AddImage(ImageCreateDto image)
@@ -22,22 +20,22 @@ namespace HouseOwnerWebApi.Services
             return await _repository.AddAsync(image);
         }
 
-        public async Task<ICollection<Image>> DeleteImage(Guid id)
+        public async Task<ICollection<Image>?> DeleteImage(Guid id)
         {
-            return await _repository.DeleteAsync(id);
+            return await _repository.DeleteSingleAsync(id);
         }
 
-        public async Task<Image> GetImage(Guid id)
+        public async Task<Image?> GetImage(Guid id)
         {
-            return await _repository.GetSingleAsync(id);
+            return await _repository.GetOneAsync(id);
         }
 
         public async Task<ICollection<Image>> GetImages()
         {
-            return await _repository.GetAllAsync();
+            return await _repository.GetAsync();
         }
 
-        public async Task<Image> UpdateImage(Guid id, ImageCreateDto image)
+        public async Task<Image?> UpdateImage(Guid id, ImageCreateDto image)
         {
             return await _repository.UpdateAsync(id, image);
         }
